@@ -19,7 +19,7 @@ public class App implements Runnable {
 	public Window window;
 	public final int WIDTH = 1280, HEIGHT = 760;
 	public GameObject object;
-	public Camera camera = new Camera(new Vector3(0, 0, 1), new Vector3(0, 0, 0));
+	public Camera camera = new Camera(new Vector3(0, 0, 10), new Vector3(0, 180, 0));
 	
 	public void start() {	
 		game = new Thread(this, "game");

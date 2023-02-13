@@ -28,7 +28,7 @@ public class Window {
 		this.height = height;
 		this.title = title;
 
-		projection = Matrix4.projection(70.0f, (float) width / (float) height, 0.1f, 100000.0f);
+		projection = Matrix4.projection(90.0f, (float) width / (float) height, 0.1f, 10000.0f);
 	}
 	
 	public void create() {
