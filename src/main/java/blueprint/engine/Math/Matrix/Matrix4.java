@@ -90,8 +90,8 @@ public class Matrix4 {
 		result.set(0, 0, 1.0f / (aspect * tanFOV));
 		result.set(1, 1, 1.0f / tanFOV);
 		result.set(2, 2, -((far + near) / range));
-		result.set(2, 3, -1.0f);
-		result.set(3, 2, -((2 * far * near) / range));
+		result.set(3, 2, -1.0f);
+		result.set(2, 3, -((2 * far * near) / range));
 		result.set(3, 3, 0.0f);
 		
 		return result;
@@ -100,14 +100,14 @@ public class Matrix4 {
 	public static Matrix4 view(Vector3 position, Vector3 rotation) {
 		Matrix4 result = Matrix4.identity();
 		
-		Vector3 negative = new Vector3(-position.x, -position.x, -position.z);
+		Vector3 negative = new Vector3(-position.x, -position.y, -position.z);
 		Vector3 negRot = new Vector3(-rotation.x, -rotation.y, -rotation.z);
 		Matrix4 translationMatrix = Matrix4.translation(negative);
 		Matrix4 rotXMatrix = Matrix4.rotate(negRot.x, new Vector3(1, 0, 0));
 		Matrix4 rotYMatrix = Matrix4.rotate(negRot.y, new Vector3(0, 1, 0));
 		Matrix4 rotZMatrix = Matrix4.rotate(negRot.z, new Vector3(0, 0, 1));
 		
-		Matrix4 rotationMatrix = Matrix4.Multiply(rotYMatrix, Matrix4.Multiply(rotZMatrix, rotXMatrix));
+		Matrix4 rotationMatrix = Matrix4.Multiply(rotZMatrix, Matrix4.Multiply(rotXMatrix, rotYMatrix));
 		
 		result = Matrix4.Multiply(rotationMatrix, translationMatrix);
 		

@@ -27,7 +27,7 @@ public class Mesh {
 			new int[] { 
 				0, 1, 2,
 				0, 3, 2 
-			},new Material("/blueprint/textures/randomAsset.png")); 
+			},new Material("/blueprint/resources/randomAsset.png")); 
 	}
 	
 	public Mesh(Vertex[] vertices, int[] indices, Material mat) {
@@ -37,6 +37,8 @@ public class Mesh {
 	}
 	
 	public void create() {
+		mat.create();
+
 		vao = GL30.glGenVertexArrays();
 		GL30.glBindVertexArray(vao);
 		

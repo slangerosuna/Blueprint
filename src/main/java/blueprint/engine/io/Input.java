@@ -20,6 +20,9 @@ public class Input {
 	public Input() {
 		keyboard = new GLFWKeyCallback() {
 			public void invoke(long window, int key, int scancode, int action, int mods) {
+				if(key == GLFW.GLFW_KEY_ESCAPE && action != GLFW.GLFW_RELEASE){
+					GLFW.glfwSetInputMode(window, GLFW.GLFW_CURSOR, GLFW.GLFW_CURSOR_NORMAL);
+				}
 				keys[key] = (action != GLFW.GLFW_RELEASE);
 			}
 		};
@@ -33,6 +36,7 @@ public class Input {
 		
 		mouseButtons = new GLFWMouseButtonCallback() {
 			public void invoke(long window, int button, int action, int mods) {
+				GLFW.glfwSetInputMode(window, GLFW.GLFW_CURSOR, GLFW.GLFW_CURSOR_DISABLED);
 				buttons[button] = (action != GLFW.GLFW_RELEASE);
 			}
 		};

@@ -9,5 +9,5 @@ out vec4 color;
 uniform sampler2D tex;
 
 void main() {
-	color = passColor;
+	color = texture(tex, passUV) * (0.5 + dot(passNormal, vec3(0.28, 0.28, 0.28)));
 }

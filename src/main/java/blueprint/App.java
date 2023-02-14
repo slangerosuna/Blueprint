@@ -7,6 +7,7 @@ import blueprint.engine.graphics.Mesh;
 import blueprint.engine.graphics.Renderer;
 import blueprint.engine.graphics.Shader;
 import blueprint.engine.io.Input;
+import blueprint.engine.io.ModelLoader;
 import blueprint.engine.io.Window;
 import blueprint.engine.objects.Camera;
 import blueprint.engine.objects.GameObject;
@@ -36,7 +37,7 @@ public class App implements Runnable {
 		
 		window.create();
 		
-		mesh = Mesh.getRectMesh();
+		mesh = ModelLoader.loadModel("C:/Users/Ball Fondlers/VSCode/Blueprint/Blueprint/src/main/java/blueprint/resources/cube.obj", "/blueprint/resources/randomAsset.png");
 		
 		mesh.create();
 		
@@ -74,9 +75,8 @@ public class App implements Runnable {
 	private void update() {
 		window.update();
 		//if (Input.isButtonDown(GLFW.GLFW_MOUSE_BUTTON_LEFT)) System.out.println("X: " + Input.getMouseX() + ", Y: " + Input.getMouseY());
-		//camera.update(object);
+		camera.update();
 		//object.update();
-		camera.rotate();
 	}
 	
 	private void render() {

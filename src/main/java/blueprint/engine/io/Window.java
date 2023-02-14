@@ -58,6 +58,8 @@ public class Window {
 		
 		GLFW.glfwShowWindow(window);
 		
+		GLFW.glfwSetInputMode(window, GLFW.GLFW_CURSOR, GLFW.GLFW_CURSOR_DISABLED);
+
 		GLFW.glfwSwapInterval(1);
 		
 		time = System.currentTimeMillis();

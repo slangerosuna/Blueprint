@@ -16,7 +16,7 @@ public class ModelLoader {
 	public static Mesh loadModel(String filePath, String texturePath) {
 		AIScene scene = Assimp.aiImportFile(filePath, Assimp.aiProcess_JoinIdenticalVertices | Assimp.aiProcess_Triangulate);
 		
-		if (scene == null) System.err.println("Couldn't load model at " + filePath);
+		if (scene == null) System.err.println("Couldn't load model at " + filePath + "\nReason: " + Assimp.aiGetErrorString());
 		
 		AIMesh mesh = AIMesh.create(scene.mMeshes().get(0));
 		int vertexCount = mesh.mNumVertices();
