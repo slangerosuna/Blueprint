@@ -29,6 +29,7 @@ public class Window {
 		this.title = title;
 
 		projection = Matrix4.projection(90.0f, (float) width / (float) height, 0.1f, 10000.0f);
+
 	}
 	
 	public void create() {
@@ -80,6 +81,7 @@ public class Window {
 	
 	public void update() {
 		if (isResized) {
+      projection = Matrix4.projection(90.0f, (float) width / (float) height, 0.1f, 100000.0f);
 			GL11.glViewport(0, 0, width, height);
 			isResized = false;
 		}
