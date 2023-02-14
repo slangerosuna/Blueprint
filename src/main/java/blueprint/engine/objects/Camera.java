@@ -39,6 +39,11 @@ public class Camera {
 		oldMouseY = newMouseY;
 	}
 	
+	public void rotate(){
+		rotation = new Vector3(0, (rotation.y + 2) % 360, 0);
+		System.out.println(rotation.y);
+	}
+
 	public void update(GameObject object) {
 		newMouseX = Input.getMouseX();
 		newMouseY = Input.getMouseY();
@@ -68,7 +73,7 @@ public class Camera {
 	    
 		rotation.set(verticalAngle, -horizontalAngle, 0);
 		
-        System.out.println(verticalAngle + "|" + horizontalAngle);
+        //System.out.println(verticalAngle + "|" + horizontalAngle);
 
 		oldMouseX = newMouseX;
 		oldMouseY = newMouseY;

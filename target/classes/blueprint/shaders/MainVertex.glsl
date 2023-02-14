@@ -1,9 +1,9 @@
 #version 460 core
 
-layout(location = 0) attribute vec3 position;
-layout(location = 1) attribute vec4 color;
-layout(location = 2) attribute vec2 UV;
-layout(location = 3) attribute vec3 normal;
+layout(location = 0) in vec3 position;
+layout(location = 1) in vec4 color;
+layout(location = 2) in vec2 UV;
+layout(location = 3) in vec3 normal;
 
 out vec4 passColor;
 out vec2 passUV;
@@ -16,7 +16,7 @@ uniform mat4 projection;
 void main() {
 	gl_Position = vec4(position, 1.0) * model * view * projection;
 	
-	passColor = color;
+	passColor = vec4(-projection[3][2], model[0][1], model[0][2], 1.0);
 	passUV = UV;
 	passNormal = normal;
 }

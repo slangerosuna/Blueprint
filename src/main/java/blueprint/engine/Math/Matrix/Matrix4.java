@@ -109,7 +109,7 @@ public class Matrix4 {
 		
 		Matrix4 rotationMatrix = Matrix4.Multiply(rotYMatrix, Matrix4.Multiply(rotZMatrix, rotXMatrix));
 		
-		result = Matrix4.Multiply(translationMatrix, rotationMatrix);
+		result = Matrix4.Multiply(rotationMatrix, translationMatrix);
 		
 		return result;
 	}

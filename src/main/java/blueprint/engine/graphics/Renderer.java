@@ -52,10 +52,11 @@ public class Renderer {
     GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, object.mesh.getIBO());
     GL13.glActiveTexture(GL13.GL_TEXTURE0);
     GL13.glBindTexture(GL11.GL_TEXTURE_2D, object.mesh.getTextureID());
-    shader.setUniform("model", Matrix4.transform(object.position, object.rotation, object.scale), false);
-    shader.setUniform("view", Matrix4.view(camera.position, camera.rotation), false);
+    shader.setUniform("model", Matrix4.transform(object.position, object.rotation, object.scale), true);
+    shader.setUniform("view", Matrix4.view(camera.position, camera.rotation), true);
     shader.setUniform("projection", window.getProjectionMatrix(), false);
 
+    /* 
     System.out.println("Model:");
     Matrix4.transform(object.position, object.rotation, object.scale).print();
     System.out.println("\n-------------------------\n");
@@ -67,7 +68,7 @@ public class Renderer {
     System.out.println("Projection:");
     window.getProjectionMatrix().print();
     System.out.println("\n-------------------------\n");
-
+    */
     GL11.glDrawElements(GL11.GL_TRIANGLES, object.mesh.getIndices().length, GL11.GL_UNSIGNED_INT, 0);
 
     GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, 0);

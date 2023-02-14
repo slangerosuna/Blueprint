@@ -74,8 +74,9 @@ public class App implements Runnable {
 	private void update() {
 		window.update();
 		//if (Input.isButtonDown(GLFW.GLFW_MOUSE_BUTTON_LEFT)) System.out.println("X: " + Input.getMouseX() + ", Y: " + Input.getMouseY());
-		camera.update(object);
+		//camera.update(object);
 		//object.update();
+		camera.rotate();
 	}
 	
 	private void render() {
