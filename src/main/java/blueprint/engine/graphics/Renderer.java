@@ -21,11 +21,11 @@ public class Renderer {
     bound = null;
   }
 
-  public void renderObject(GameObject object, Camera camera) {
+  public void renderObject(GameObject object, Mesh mesh, Camera camera) {
     GL13.glActiveTexture(GL13.GL_TEXTURE0);
-    GL13.glBindTexture(GL11.GL_TEXTURE_2D, object.mesh.getTextureID());
+    GL13.glBindTexture(GL11.GL_TEXTURE_2D, mesh.getTextureID());
 
-    GL30.glBindVertexArray(object.mesh.getVAO());
+    GL30.glBindVertexArray(mesh.getVAO());
 
     if (bound != shader) {
       if (bound != null) {
@@ -39,24 +39,26 @@ public class Renderer {
       shader.bind();
       bound = shader;
 
-      object.mesh.bindVertexAttributes();
+      mesh.bindVertexAttributes();
 
       GL30.glEnableVertexAttribArray(0);
       GL30.glEnableVertexAttribArray(1);
       GL30.glEnableVertexAttribArray(2);
       GL30.glEnableVertexAttribArray(3);
     } else {
-      object.mesh.bindVertexAttributes();
+      mesh.bindVertexAttributes();
     }
 
-    GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, object.mesh.getIBO());
+    GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, mesh.getIBO());
+
     GL13.glActiveTexture(GL13.GL_TEXTURE0);
-    GL13.glBindTexture(GL11.GL_TEXTURE_2D, object.mesh.getTextureID());
+    GL13.glBindTexture(GL11.GL_TEXTURE_2D, mesh.getTextureID());
+    
     shader.setUniform("model", Matrix4.transform(object.position, object.rotation, object.scale), true);
     shader.setUniform("view", Matrix4.view(camera.position, camera.rotation), true);
     shader.setUniform("projection", window.getProjectionMatrix(), true);
 
-    GL11.glDrawElements(GL11.GL_TRIANGLES, object.mesh.getIndices().length, GL11.GL_UNSIGNED_INT, 0);
+    GL11.glDrawElements(GL11.GL_TRIANGLES, mesh.getIndices().length, GL11.GL_UNSIGNED_INT, 0);
 
     GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, 0);
 

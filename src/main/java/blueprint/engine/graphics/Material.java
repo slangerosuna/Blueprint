@@ -23,8 +23,6 @@ public class Material {
 			width = texture.getWidth();
 			height = texture.getHeight();
 			textureID = texture.getTextureID();
-
-			System.out.println(width);
 		} catch (IOException e) {
 			System.err.println("Can't find texture at " + path);
 		}

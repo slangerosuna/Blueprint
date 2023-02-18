@@ -1,23 +1,19 @@
 package blueprint.engine.objects;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 import blueprint.engine.Math.Vector.Vector3;
-import blueprint.engine.graphics.Mesh;
 
 public class GameObject {
 	public Vector3 position, rotation, scale;
-	public Mesh mesh;
-	private double temp;
 	public ArrayList<ObjectScript> objectScripts;
 	
-	public GameObject(Mesh mesh, Vector3 position, Vector3 rotation, Vector3 scale) {
-		this.mesh = mesh;
+	public GameObject(Vector3 position, Vector3 rotation, Vector3 scale) {
 		this.position = position;
 		this.scale = scale;
 		this.rotation = rotation;
 		objectScripts = new ArrayList<ObjectScript>();
+		ObjectManager.register(this);
 	}
 	
 	public void update() {
@@ -29,6 +25,7 @@ public class GameObject {
 	public void AddScript(ObjectScript script){
 		objectScripts.add(script);
 		script.start();
+		script.setParent(this);
 	}
 	public <T extends ObjectScript> T GetScript(Class<T> T){
 		for(int i = 0; i < objectScripts.size(); i++){
@@ -37,5 +34,8 @@ public class GameObject {
 			}
 		}
 		return null;
+	}
+	public void destroy(){
+		ObjectManager.remove(this);
 	}
 }

@@ -9,15 +9,26 @@ import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GL30;
 import org.lwjgl.system.MemoryUtil;
 
+import blueprint.App;
 import blueprint.engine.Math.Vector.Vector2;
 import blueprint.engine.Math.Vector.Vector3;
+import blueprint.engine.objects.GameObject;
+import blueprint.engine.objects.ObjectScript;
 
-public class Mesh {
+public class Mesh implements ObjectScript{
 	private Material mat = null;
 	private Vertex[] vertices;
 	private int[] indices;
 	private int vao, pbo, ibo, cbo, uvbo, nbo;
-	
+	GameObject parent;
+    public void setParent(GameObject object){
+        parent = object;
+    }
+	public void update(){
+		App.renderer.renderObject(parent, this, App.camera);
+	}
+	public void start() { }
+
 	public static Mesh getRectMesh() {
 		return new Mesh(new Vertex[] { 
 				new Vertex(new Vector3(-0.5f, 0.5f, 0.0f), new Vector2(0, 0), new Vector3(1, 0, 0)), 

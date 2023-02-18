@@ -1,7 +1,6 @@
 package blueprint.engine.objects;
 
 import org.lwjgl.glfw.GLFW;
-import org.lwjglx.Sys;
 
 import blueprint.engine.io.Input;
 import blueprint.engine.Math.Vector.Vector3;
@@ -17,6 +16,7 @@ public class Camera {
 	}
 	
 	public void update() {
+		/*
 		newMouseX = Input.getMouseX();
 		newMouseY = Input.getMouseY();
 		
@@ -36,7 +36,8 @@ public class Camera {
 		rotation = Vector3.add(rotation, new Vector3(-dy * mouseSensitivity, -dx * mouseSensitivity, 0));
 		
 		oldMouseX = newMouseX;
-		oldMouseY = newMouseY;
+		oldMouseY = newMouseY;*/
+		rotation = Vector3.add(rotation, new Vector3(0, 5, 0));
 	}
 	
 	public void rotate(){

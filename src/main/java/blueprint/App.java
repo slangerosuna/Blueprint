@@ -11,18 +11,17 @@ import blueprint.engine.io.ModelLoader;
 import blueprint.engine.io.Window;
 import blueprint.engine.objects.Camera;
 import blueprint.engine.objects.GameObject;
-import blueprint.engine.objects.colliders.ConcaveCollider;
-import blueprint.engine.objects.colliders.*;
+import blueprint.engine.objects.ObjectManager;
 
 public class App implements Runnable {
 	public Shader shader;
-	public Renderer renderer;
+	public static Renderer renderer;
 	public Mesh mesh;
 	public Thread game;
 	public Window window;
 	public final int WIDTH = 1280, HEIGHT = 760;
 	public GameObject object;
-	public Camera camera = new Camera(new Vector3(0, 0, 10), new Vector3(0, 180, 0));
+	public static Camera camera = new Camera(new Vector3(0, 0, 10), new Vector3(0, 0, 0));
 	
 	public void start() {	
 		game = new Thread(this, "game");
@@ -30,6 +29,8 @@ public class App implements Runnable {
 	}
 	
 	public void init() {
+		ObjectManager.init();
+		
 		window = new Window(WIDTH, HEIGHT, "Game");
 		window.setBackgroundColor(0.05f, 0.045f, 0.06f);
 		
@@ -43,18 +44,18 @@ public class App implements Runnable {
 		
 		mesh.create();
 		
-		object = new GameObject(mesh, new Vector3(0, 0, 0), new Vector3(0, 0, 0), new Vector3(1, 1, 1));
-		
-		shader.create();
+		object = new GameObject(new Vector3(0, 0, 0), new Vector3(0, 0, 0), new Vector3(1, 1, 1));
+		object.AddScript(mesh);
 
-		System.out.println(object.<ConcaveCollider>GetScript(ConcaveCollider.class) == null);
+		shader.create();
 	}
 	
 	public void run() {	
 		init();
 		while (!window.shouldClose()) {
 			update();
-			render();
+			window.swapBuffers();
+
 			if (Input.isKeyDown(GLFW.GLFW_KEY_F11)) window.setFullscreen(!window.isFullscreen());;
 		}
 		close();
@@ -77,16 +78,12 @@ public class App implements Runnable {
 	}
 	
 	private void update() {
-		window.update();
-		//if (Input.isButtonDown(GLFW.GLFW_MOUSE_BUTTON_LEFT)) System.out.println("X: " + Input.getMouseX() + ", Y: " + Input.getMouseY());
 		camera.update();
-		//object.update();
+
+		ObjectManager.update();
+		window.update();
 	}
 	
-	private void render() {
-		renderer.renderObject(object, camera);
-		window.swapBuffers();
-	}
 	
 	public static void main(String[] args) {
 		new App().start();
