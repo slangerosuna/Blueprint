@@ -11,6 +11,8 @@ import blueprint.engine.io.ModelLoader;
 import blueprint.engine.io.Window;
 import blueprint.engine.objects.Camera;
 import blueprint.engine.objects.GameObject;
+import blueprint.engine.objects.colliders.ConcaveCollider;
+import blueprint.engine.objects.colliders.*;
 
 public class App implements Runnable {
 	public Shader shader;
@@ -44,6 +46,8 @@ public class App implements Runnable {
 		object = new GameObject(mesh, new Vector3(0, 0, 0), new Vector3(0, 0, 0), new Vector3(1, 1, 1));
 		
 		shader.create();
+
+		System.out.println(object.<ConcaveCollider>GetScript(ConcaveCollider.class) == null);
 	}
 	
 	public void run() {	
