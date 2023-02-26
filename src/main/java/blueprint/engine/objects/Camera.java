@@ -16,7 +16,6 @@ public class Camera {
 	}
 	
 	public void update() {
-		/*
 		newMouseX = Input.getMouseX();
 		newMouseY = Input.getMouseY();
 		
@@ -36,8 +35,7 @@ public class Camera {
 		rotation = Vector3.add(rotation, new Vector3(-dy * mouseSensitivity, -dx * mouseSensitivity, 0));
 		
 		oldMouseX = newMouseX;
-		oldMouseY = newMouseY;*/
-		rotation = Vector3.add(rotation, new Vector3(0, 5, 0));
+		oldMouseY = newMouseY;
 	}
 	
 	public void rotate(){

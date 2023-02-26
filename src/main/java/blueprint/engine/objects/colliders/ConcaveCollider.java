@@ -1,9 +1,13 @@
 package blueprint.engine.objects.colliders;
 
+import blueprint.engine.Math.Vector.Vector3;
 import blueprint.engine.objects.GameObject;
 import blueprint.engine.objects.ObjectScript;
 
 public class ConcaveCollider implements Collider, ObjectScript{
+    Vector3[] vertices;
+    int[] indices;
+
     GameObject parent;
     public void setParent(GameObject object){
         parent = object;
@@ -14,5 +18,8 @@ public class ConcaveCollider implements Collider, ObjectScript{
     public void update(){
         
     }
-    
+    public void setMesh(Vector3[] vertices, int[] indices){
+        this.vertices = vertices;
+        this.indices = indices;
+    }
 }

@@ -16,11 +16,11 @@ import blueprint.engine.objects.ObjectManager;
 public class App implements Runnable {
 	public Shader shader;
 	public static Renderer renderer;
-	public Mesh mesh;
+	public static Mesh mesh;
 	public Thread game;
 	public Window window;
 	public final int WIDTH = 1280, HEIGHT = 760;
-	public GameObject object;
+	public static GameObject object;
 	public static Camera camera = new Camera(new Vector3(0, 0, 10), new Vector3(0, 0, 0));
 	
 	public void start() {	
@@ -36,7 +36,6 @@ public class App implements Runnable {
 		
 		shader = new Shader("/blueprint/shaders/MainVertex.glsl", "/blueprint/shaders/MainFrag.glsl");
 		renderer = new Renderer(window, shader);
-		load();
 		
 		window.create();
 		
@@ -57,31 +56,25 @@ public class App implements Runnable {
 			window.swapBuffers();
 
 			if (Input.isKeyDown(GLFW.GLFW_KEY_F11)) window.setFullscreen(!window.isFullscreen());;
+			if (Input.isKeyDown(GLFW.GLFW_KEY_ESCAPE)) break;
 		}
 		close();
 	}
-	
-	private void close() {
-		save();
-		
+	public static void renderObject(GameObject object, Mesh mesh, Camera camera){
+		renderer.renderObject(object, mesh, camera);
+	}
+	private void close() {		
 		mesh.destroy();
 		window.destroy();
 		shader.destroy();
 	}
 	
-	private void save() {
-		
-	}
-	
-	private void load() {
-		
-	}
 	
 	private void update() {
 		camera.update();
 
-		ObjectManager.update();
 		window.update();
+		ObjectManager.update();
 	}
 	
 	

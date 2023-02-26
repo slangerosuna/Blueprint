@@ -20,14 +20,18 @@ public class Mesh implements ObjectScript{
 	private Vertex[] vertices;
 	private int[] indices;
 	private int vao, pbo, ibo, cbo, uvbo, nbo;
-	GameObject parent;
+	public GameObject parent;
     public void setParent(GameObject object){
         parent = object;
     }
 	public void update(){
-		App.renderer.renderObject(parent, this, App.camera);
+		App.renderObject(parent, this, App.camera);
 	}
 	public void start() { }
+
+	public Mesh b(){
+		return this;
+	}
 
 	public static Mesh getRectMesh() {
 		return new Mesh(new Vertex[] { 
