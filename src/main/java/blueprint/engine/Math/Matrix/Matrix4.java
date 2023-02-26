@@ -151,23 +151,51 @@ public class Matrix4 {
 		return new Vector3(get(0, 0), get(1, 1), get(2, 2));
 	}
 	public Matrix4 inverted(){
-		//TODO
-		return Matrix4.identity();
+		//Create a matrix to receive inverse matrix data
+    	Matrix4 reMatrix = Matrix4.identity(); 
+        //Get the value of the determinant of the original matrix
+        float value = determinant(); 
+        //Judge whether the value of matrix determinant is zero
+        if(Math.abs(value) <= 10e-6) {
+            System.out.println("The matrix is irreversible!");
+            return this;
+        }
+        //Primitive matrix mat Assignment divided by the value of the original determinant value Inverse matrix
+        for (int i = 0; i < SIZE; i++) {
+            for (int j = 0; j < SIZE; j++) {
+                reMatrix.set(i, j, getWithMatrix(this).get(i, j) / value);
+            }
+        }
+        return reMatrix;
 	}
 	public float determinant(){
         float result = 0;
 
         for(int i = 0; i < SIZE; i++){
-            result += get(i, 0) * subMatrix(i).determinant();
+            result += get(i, 0) * subMatrix(i, 0).determinant();
         }
         
         return result; 
     }
-    public Matrix3 subMatrix(int i){
+    public Matrix3 subMatrix(int i, int j){
         Matrix3 result = Matrix3.identity();
-        for(int x = 0; x < SIZE; x++) { if(x != i) { for(int y = 1; y < SIZE; y++) { result.set(x > 1 ? x - 1 : x, y - 1, get(x, y)); } } }
+        for(int x = 0; x < SIZE; x++) { if(x != i) { for(int y = 0; y < SIZE; y++) { if(y != j) { result.set(x > i ? x - 1 : x, y > j ? y - 1 : y, get(x, y)); } } } }
         return result;
     }
+	public static Matrix4 getWithMatrix(Matrix4 mat) {
+		//Create a matrix to store the values of adjoint matrix
+		Matrix4 withMatrix = Matrix4.identity();
+		//ergodic withMatrix Store corresponding mat Value
+	    for (int i = 0; i < SIZE; i++) {
+	        for (int j = 0; j < SIZE; j++) {
+	            float temp = (float)Math.pow(-1, i+j) * mat.subMatrix(j, i).determinant();
+	            if(Math.abs(temp) <= 10e-6) temp = 0;
+	            withMatrix.set(i, j,temp);
+	        }
+	    }
+	    //Return result
+		return withMatrix;    
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;

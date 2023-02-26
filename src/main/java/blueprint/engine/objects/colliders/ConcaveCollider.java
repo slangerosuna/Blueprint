@@ -1,5 +1,6 @@
 package blueprint.engine.objects.colliders;
 
+import blueprint.engine.Math.Matrix.Matrix4;
 import blueprint.engine.Math.Vector.Vector3;
 import blueprint.engine.objects.GameObject;
 import blueprint.engine.objects.ObjectScript;
@@ -7,6 +8,7 @@ import blueprint.engine.objects.ObjectScript;
 public class ConcaveCollider implements Collider, ObjectScript{
     Vector3[] vertices;
     int[] indices;
+    Matrix4 prevRot;
 
     GameObject parent;
     public void setParent(GameObject object){
